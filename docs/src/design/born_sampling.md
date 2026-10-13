@@ -11,7 +11,7 @@ The Z₂ backend uses rank-one local sector markers. The public constructors are
 `z2_born_space(0,1)` for the physical space and `z2_born_space(1)` for the odd
 auxiliary space.
 
-The SO(4) backend uses the degenerate projectors `{P_eta, P_spin}` on exactly
+The ``SU(2)\times SU(2)`` backend uses the degenerate projectors `{P_eta, P_spin}` on exactly
 `su2su2_born_space()`. Both admitted irreps have multiplicity one but carrier
 dimension two. The sampler retains the selected carrier as the third rank-4
 marker leg and never splits it into magnetic quantum numbers.
@@ -70,7 +70,7 @@ A Born result retains:
 - post-measurement compression norm; and
 - maximum probability-normalization residual.
 
-SO(4) and U(1)×SU(2) results additionally retain `marker_dimensions` in their
+``SU(2)\times SU(2)`` and U(1)×SU(2) results additionally retain `marker_dimensions` in their
 documented sector order. Fixed-N results also retain occupancies, target N,
 target charge, and conditional and unconditioned probabilities. Changes to
 these fields are public result-schema changes.
@@ -81,7 +81,7 @@ Production Monte Carlo samples are already distributed according to the Born
 probability. Their thermal continuation estimator uses only relative norm
 weights; do not multiply by `born_log_probability` again.
 
-The deterministic SO(4) four-site oracle visits all 16 configurations
+The deterministic ``SU(2)\times SU(2)`` four-site oracle visits all 16 configurations
 uniformly, so it must include `log(p_configuration)` when combining those
 trajectories. That correction belongs only to the private uniform-enumeration
 oracle, not to production Monte Carlo.
@@ -108,7 +108,7 @@ and the internal `_logmeanexp` remains private.
 
 Z₂ tests enumerate a complete small input basis, check identity and probability
 normalization, compare sequential and direct-column probabilities, and compare
-each collapsed snapshot with a private direct contraction. SO(4) tests check
+each collapsed snapshot with a private direct contraction. ``SU(2)\times SU(2)`` tests check
 projector identity/orthogonality, direct/sequential equality, retained carrier
 markers, deterministic repeatability, and the two-site ED energy oracle.
 Fixed-N U(1)×SU(2) tests enumerate every two-site occupancy configuration in

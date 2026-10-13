@@ -33,7 +33,6 @@ representatives K and distinct sector configurations Np.
 - [Thermal evolution and weights](design/finite_temperature.md)
 - [Execution, output and method interfaces](design/runtime.md)
 - [Resampling methods](design/resampling.md)
-- [Purification/Born derivation](finite_temperature_resampling.md)
 
 ## Library API
 

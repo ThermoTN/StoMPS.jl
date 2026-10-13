@@ -49,7 +49,7 @@ the storage representation of an input space.
 `sectors(d)` iteration order is implementation order, not a physical label.
 Persist indices such as `r_list` together with the exact sector ordering and
 translate them through the same local space when interpreting saved data.
-Track multiplicity and carrier degeneracy separately. SO(4) carrier dimension
+Track multiplicity and carrier degeneracy separately. ``SU(2)\times SU(2)`` carrier dimension
 two is not multiplicity two.
 
 The fixed-N U(1)×SU(2) backend constructs its public sector list explicitly as
@@ -58,9 +58,9 @@ corresponding marker carrier dimensions are `[1,2,1]`. Its remaining-charge
 dynamic program uses public `LocalLeftTensor`/`LocalRightTensor` wrappers and
 explicit TensorKit contractions.
 
-## SO(4) hopping gauge
+## ``SU(2)\times SU(2)`` hopping gauge
 
-The SO(4) fermion tensor carries auxiliary irrep `(1/2,1/2)`. TensorKit's
+The ``SU(2)\times SU(2)`` fermion tensor carries auxiliary irrep `(1/2,1/2)`. TensorKit's
 uncoupled eta basis on B differs from A by a pi pseudospin rotation. An
 ordered A-to-B bond therefore uses `hopping_AB`; B-to-A uses `hopping_BA`,
 which flips the charge-doublet reduced blocks at both ends. Both orientations

@@ -47,7 +47,9 @@ jobs:
           version: '1.11'
       - uses: julia-actions/cache@v2
       - name: Instantiate example
-        run: julia --project="$APP" -e 'using Pkg; Pkg.instantiate(); using MPI; MPI.install_mpiexecjl()'
+        run: |
+          julia --project="$APP" -e 'using Pkg; Pkg.instantiate(); using MPI; MPI.install_mpiexecjl()'
+          julia --project="$APP" -e 'println(joinpath(DEPOT_PATH[1], "bin"))' >> "$GITHUB_PATH"
       - name: MPI rank-independent cooling and consecutive resampling
         run: |
           export TMPDIR="$RUNNER_TEMP/stomps-scratch"

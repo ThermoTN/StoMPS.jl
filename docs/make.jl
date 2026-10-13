@@ -8,7 +8,6 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "Execution and output" => "design/runtime.md",
-        "Finite-temperature resampling" => "finite_temperature_resampling.md",
         "Annealed MPI resampling" => "design/resampling.md",
     ],
 )
