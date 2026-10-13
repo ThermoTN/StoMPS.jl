@@ -1,0 +1,38 @@
+name = "StoMPS"
+uuid = "fc2dd6c8-c6a1-468e-b844-1be9bb585da6"
+authors = ["Jianxin-Gao <jxgao@buaa.edu.cn>", "contributors"]
+version = "0.6.0-DEV"
+
+[deps]
+FiniteLattices = "650210df-7c64-40ac-8e1f-94ea4f378b07"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+FiniteMPS = "6b572690-f317-4dad-a5fe-5fe73a0b7d42"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+SHA = "ea8e919c-243c-51af-8825-aaa63cd721ce"
+
+[weakdeps]
+MPI = "da04e1cc-30fd-572f-bb4f-1f8673147195"
+
+[extensions]
+StoMPSMPIExt = "MPI"
+
+[compat]
+FiniteLattices = "2.2"
+Dates = "1.11"
+Printf = "1.11"
+FiniteMPS = "1.8"
+Random = "1.11"
+JLD2 = "0.6"
+LinearAlgebra = "1.11"
+SHA = "0.7, 1.11"
+MPI = "0.20"
+julia = "1.11"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

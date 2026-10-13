@@ -1,0 +1,59 @@
+name: CI
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        finitemps: [minimum, latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.11'
+      - uses: julia-actions/cache@v2
+      - name: Resolve registered dependencies
+        shell: julia --project=. {0}
+        run: |
+          using Pkg
+          if "${{ matrix.finitemps }}" == "minimum"
+              Pkg.add(PackageSpec(name="FiniteMPS", version="1.8.0"))
+          else
+              Pkg.instantiate()
+              Pkg.update("FiniteMPS")
+          end
+      - name: Core identities and small-system ED
+        run: julia --project=. -t2 test/runtests.jl
+  mpi:
+    needs: core
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [U1SU2_Hubbard_square_lattice_canonical_ensemble, U1SU2_Hubbard_square_lattice_grand_canonical_ensemble]
+    env:
+      APP: examples/${{ matrix.app }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.11'
+      - uses: julia-actions/cache@v2
+      - name: Instantiate example
+        run: julia --project="$APP" -e 'using Pkg; Pkg.instantiate(); using MPI; MPI.install_mpiexecjl()'
+      - name: MPI rank-independent cooling and consecutive resampling
+        run: |
+          export TMPDIR="$RUNNER_TEMP/stomps-scratch"
+          mkdir -p "$TMPDIR"
+          mpiexecjl --project="$APP" -n 1 julia --project="$APP" -t2 test/application_smoke.jl "$RUNNER_TEMP/n1" "${{ matrix.app }}"
+          mpiexecjl --project="$APP" -n 2 julia --project="$APP" -t2 test/application_smoke.jl "$RUNNER_TEMP/n2" "${{ matrix.app }}"
+          julia --project="$APP" test/compare_applications.jl "$RUNNER_TEMP/n1" "$RUNNER_TEMP/n2"
+      - name: No generated tracked changes
+        run: git diff --exit-code
