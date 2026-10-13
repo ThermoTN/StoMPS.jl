@@ -18,7 +18,7 @@ jobs:
       - uses: julia-actions/setup-julia@v2
         with:
           version: '1.11'
-      - uses: julia-actions/cache@v2
+      - uses: julia-actions/cache@v3
       - name: Resolve registered dependencies
         shell: julia --project=. {0}
         run: |
@@ -45,7 +45,7 @@ jobs:
       - uses: julia-actions/setup-julia@v2
         with:
           version: '1.11'
-      - uses: julia-actions/cache@v2
+      - uses: julia-actions/cache@v3
       - name: Instantiate example
         run: |
           julia --project="$APP" -e 'using Pkg; Pkg.instantiate(); using MPI; MPI.install_mpiexecjl()'
