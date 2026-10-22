@@ -1,0 +1,33 @@
+name: CI
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  JULIA_NUM_THREADS: '2'
+  JULIA_NUM_PRECOMPILE_TASKS: '2'
+  OPENBLAS_NUM_THREADS: '1'
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.11'
+      - uses: julia-actions/cache@v2
+      - name: Instantiate registered dependencies
+        timeout-minutes: 30
+        run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
+      - name: Hubbard and triangular Hubbard ED checks
+        timeout-minutes: 80
+        run: julia --project=. -e 'using Pkg; Pkg.test(;julia_args=["--threads=2"],allow_reresolve=false)'
+      - name: Verify tracked files remain unchanged
+        run: git diff --exit-code

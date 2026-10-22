@@ -1,0 +1,131 @@
+# Julia library environments and local preferences
+/Manifest.toml
+**/Manifest.toml
+**/LocalPreferences.toml
+.julia/
+/.arc/cache/
+
+# Julia coverage, compiled, and documentation build artifacts
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+*.ji
+coverage/
+lcov.info
+**/build/
+
+# Editors and operating systems
+.DS_Store
+**/.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local development directories
+/dev/
+/studies/
+/ops/
+/severice_support/
+**/tmp/
+**/scratch/
+/src/legacy_reference/
+/Born_sampling_beamer/
+/refs/
+
+# Local root-level notes
+/*.md
+!/README.md
+/AGENTS.md
+
+# Local example directories
+/examples/SU2Heisenberg/
+/examples/U1SU2Hubbard/
+**/config.local.jl
+
+# Calculation directories and generated analysis trees at any repository depth
+**/data/
+**/result/
+**/results/
+**/results_L64/
+**/results_L12/
+**/results_L8/
+**/output/
+**/outputs/
+**/figures/
+**/figures*/
+**/logs/
+**/log/
+**/provenance/
+**/runs/
+**/checkpoint/
+**/checkpoints/
+**/sample/
+**/samples/
+**/thermal/
+
+# Numerical data and serialized calculation artifacts
+*.jld
+*.jld2
+*.h5
+*.hdf5
+*.mat
+*.npy
+*.npz
+*.arrow
+*.parquet
+
+# Local analysis exports and generated report fragments
+/entanglement-entropy-vs-beta.html
+/examples/DopedSquareHubbard/note/data_*/
+/examples/DopedSquareHubbard/note/*.csv
+/examples/DopedSquareHubbard/note/*.png
+/examples/DopedSquareHubbard/note/*_table.tex
+
+# Scheduler and runtime logs
+slurm-*.out
+slurm-*.err
+
+# TeX-generated files
+*.log
+*.pdf
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.xdv
+
+# Generated report outputs
+**/report/*.pdf
+**/report/*.log
+
+# Tracked fixtures and assets
+!/test/fixtures/
+!/test/fixtures/**
+!/docs/src/assets/
+!/docs/src/assets/**
+
+# Local analysis drafts
+/examples/SU2SU2HubbardChain/matlab/untitled.m
+
+# Generated archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# Local calculation directories
+/examples/SU2SU2Hubbard/
+/examples/resampling_Hubbard_chain/
+/examples/HubbardChain_optical_conductivity/
+/examples/DopedSquareHubbard/
+/examples/GrandCanonicalHubbard/

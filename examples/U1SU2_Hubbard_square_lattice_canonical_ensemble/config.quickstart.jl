@@ -1,0 +1,41 @@
+# 2×2 open-square demonstration, also usable with main.jl --config PATH.
+using StoMPS: TanTRG, TDVP
+
+function config()
+    return (;
+        application=:U1SU2_Hubbard_square_lattice_canonical_ensemble,
+        symmetry=:u1su2, ensemble=:canonical,
+        L=2, W=2, boundary_x=:OBC, boundary_y=:OBC, t=1.0, U=8.0,
+        Ne=4, Ns=32, beta_list=[1/128,1/16,1/8,1/4], beta0=1/16,
+        settn_bond_dimension=32, purification_bond_dimension=32,
+        sample_bond_dimension=32,
+        cbe_ratio=0.25, cbe_tolerance=1e-8, rsvd=true,
+        settn_maxorder=6, settn_maxiter=8,
+        settn_noise=[(0.1,0.1),(0.1,0.01),(0.1,0.001)],
+        settn_tolerance=1e-13, settn_compression=1e-16,
+        settn_cutoff=1e-15, purification_cutoff=1e-15, born_cutoff=1e-15,
+        sample_cutoff=1e-15, krylov_dimension=32, tdvp_tolerance=1e-12,
+        probability_tolerance=1e-10, number_tolerance_per_site=1e-4,
+        number_flow_maximum_iterations=9, number_fit_tolerance_per_site=1e-8,
+        number_fit_maximum_iterations=128,
+        environment_disk=false, gc_step=false, gc_sweep=false,
+        resample=false, eta_threshold=0.5, eta_weight=:estimator,
+        resampling_method=:sir, sir_draw_mode=:with_replacement_until_unique,
+        alpha_selection=:loo_multiplicity, resampling_alpha=0.5,
+        alpha_max=0.999, alpha_tolerance=1e-8,
+        resampling_policy=:threshold_each, forced_betas=Float64[],
+        maximum_resampling_events=typemax(Int), eta_target=0.9,
+        acceptance_policy=:always,
+        thermal_seed=UInt64(20250301), master_seed=UInt64(20250302),
+        expected_mpi_size=nothing, expected_julia_threads=nothing, blas_threads=1,
+        output_dir=joinpath(@__DIR__, "output", "quickstart_2x2"),
+        reuse_beta0=true, overwrite_output=false, save_interval_seconds=3600.0,
+        stop_after_beta=nothing, purification=TanTRG(), evolution=TDVP(),
+        task=:all, measure_local_observables=true,
+        dynamics_betas=Float64[], dynamics_dt=0.05, dynamics_tmax=0.1,
+        frequency_list=[0.0,1.0], window_cutoff=0.1, broadening=0.0,
+        ground_state_twice_spin=0, ground_state_dynamics=false,
+        ground_state_bond_dimensions=[32], ground_state_sweeps=12,
+        ground_state_energy_tolerance=1e-9,
+    )
+end

@@ -1,0 +1,29 @@
+name: Documentation
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  JULIA_NUM_THREADS: '2'
+  JULIA_NUM_PRECOMPILE_TASKS: '2'
+  OPENBLAS_NUM_THREADS: '1'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.11'
+      - uses: julia-actions/cache@v2
+      - name: Instantiate documentation environment
+        run: julia --project=docs -e 'using Pkg; Pkg.instantiate()'
+      - name: Build documentation
+        run: julia --project=docs -t2 docs/make.jl
